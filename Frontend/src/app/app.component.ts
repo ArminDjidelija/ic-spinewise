@@ -14,7 +14,6 @@ import {UserPanelComponent} from "./User/user-panel/user-panel.component";
     RouterOutlet,
     RouterLink,
     HttpClientModule,
-    UserPanelComponent,
     RouterLinkActive
   ],
   providers:[

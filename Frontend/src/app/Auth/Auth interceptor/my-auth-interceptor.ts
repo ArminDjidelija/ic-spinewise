@@ -16,7 +16,7 @@ export class MyAuthInterceptor implements HttpInterceptor{
     //const myAuth=inject(MyAuthService);
     console.log("intercept");
     // Get the auth token from the service.
-    const authToken = this.auth.getAuthorizationToken()?.token??"";
+    const authToken = this.auth.getAuthorizationToken()??"";
     console.log(authToken);
     // Clone the request and replace the original headers with
     // cloned headers, updated with the authorization.

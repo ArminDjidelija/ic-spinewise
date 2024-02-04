@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpineWise.ClassLibrary.Models
 {
     public class ChairUser
     {
+        [Key]
         public int Id { get; set; }
         [ForeignKey(nameof(Chair))]
         public int ChairId { get; set; }

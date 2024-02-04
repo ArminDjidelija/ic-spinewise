@@ -9,7 +9,7 @@ using SpineWise.Web.Helpers.Models;
 namespace SpineWise.Web.Endpoints.AuthEndpoints.LogOut
 {
     [Route("auth")]
-    public class AuthLogOutEndpoint:MyBaseEndpoint<AuthLogOutRequest, AuthLogOutResponse>
+    public class AuthLogOutEndpoint:MyBaseEndpoint<NoRequest, AuthLogOutResponse>
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly ISignOutLogger _signOutLogger;
@@ -23,7 +23,7 @@ namespace SpineWise.Web.Endpoints.AuthEndpoints.LogOut
         }
 
         [HttpPost("logout")]
-        public override async Task<ActionResult<AuthLogOutResponse>> Action([FromBody]AuthLogOutRequest request, CancellationToken cancellationToken = default)
+        public override async Task<ActionResult<AuthLogOutResponse>> Action([FromBody] NoRequest request, CancellationToken cancellationToken = default)
         {
             UserToken? authToken = _myAuthService.GetAuthInfo().AuthUserToken;
 

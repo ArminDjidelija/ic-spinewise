@@ -4,6 +4,7 @@ import {AuthLogoutEndpoint} from "../Logout/auth-logout-endpoint";
 import {AuthLoginRequest} from "../Login/auth-login-request";
 import {tap} from "rxjs";
 import {AuthToken} from "../AuthToken/auth-token";
+import {Router} from "@angular/router";
 
 @Injectable({providedIn:'root'})
 export class MyAuthService{
@@ -11,6 +12,7 @@ export class MyAuthService{
     private authLoginEndpoint: AuthLoginEndpoint,
     //private authGetEndpoint: AuthGetEndpoint,
     private authLogoutEndpoint: AuthLogoutEndpoint,
+    private router:Router,
   ) {
   }
 
@@ -18,27 +20,38 @@ export class MyAuthService{
     return this.authLoginEndpoint.Login(loginRequest)
       .pipe(
         tap(r=>{
-          this.setLoggedUser(r.token);
+          this.setLoggedUser(r.authTokenValue);
+          //this.setRole(r.role);
         })
       )
   }
-
+  setRole(role:string){
+    if (role == null){
+      window.localStorage.setItem("role", '');
+    }
+    else {
+      window.localStorage.setItem("role", JSON.stringify(role));
+    }
+  }
   async signOut():Promise<void>{
     console.log("Signing out");
+
     const token = this.getAuthorizationToken();
 
     if (token) {
       try {
-        await this.authLogoutEndpoint.SignOut(token.token).toPromise();
+        this.authLogoutEndpoint.SignOut(token).subscribe();
       } catch (err) {
         // Handle error if needed
       }
 
       this.setLoggedUser(null);
+      await this.router.navigate([""]);
     }
     console.log("We signed out successfully");
+
   }
-  setLoggedUser(x:AuthToken | null){
+  setLoggedUser(x:string | null){
     if (x == null){
       window.localStorage.setItem("auth-token", '');
     }
@@ -47,7 +60,7 @@ export class MyAuthService{
     }
   }
 
-  getAuthorizationToken():AuthToken | null {
+  getAuthorizationToken():string | null {
     let tokenString = window.localStorage.getItem("auth-token")??"";
     try {
       return JSON.parse(tokenString);

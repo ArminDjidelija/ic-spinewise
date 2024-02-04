@@ -25,8 +25,12 @@
   <!-- Sidebar  -->
   <nav id="sidebar">
     <div class="sidebar-header">
-      <h3>SpineWise</h3>
+      <a routerLink="">
+        <h3>SpineWise</h3>
+      </a>
+      <a routerLink="">
       <strong>SW</strong>
+      </a>
     </div>
 
     <ul class="list-unstyled components">
@@ -83,6 +87,14 @@
         <a routerLink="/user/profile">
           <i class="fa fa-user" aria-hidden="true"></i>
           Profile
+        </a>
+      </li>
+      <hr>
+      <li>
+        <a (click)="signOut()" style="cursor: pointer">
+
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+          Sign out
         </a>
       </li>
 <!--      <li>-->
@@ -144,9 +156,6 @@
 <!--            <li class="nav-item">-->
 <!--              <a class="nav-link" href="#">Page</a>-->
 <!--            </li>-->
-          </ul>
-          <ul class="navbar-nav mr-auto d-md-none">
-            <!-- Dodajte ovdje linkove koji će biti prikazani samo na manjim ekranima (< 1000px) -->
           </ul>
         </div>
 

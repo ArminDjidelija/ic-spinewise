@@ -27,7 +27,7 @@ namespace SpineWise.Web.Endpoints.ChairManagement.Get
                     Id = x.Id,
                     SerialNumber = x.SerialNumber,
                     DateOfCreating = x.DateOfCreating,
-                    ChairModel = x.ChairModel
+                    ChairModel = x.ChairModel,
                 })
                 .ToListAsync(cancellationToken);
 

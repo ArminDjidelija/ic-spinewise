@@ -53,8 +53,19 @@ namespace SpineWise.Web.Endpoints.AuthEndpoints.Login
                 UserAccountId = loggedUserAccount.Id,
                 TimeOfRecording = DateTime.Now
             };
+            string role = "";
 
-            var newToken = new AuthLoginResponse() { AuthTokenValue = signInToken };
+            var userCheck = await _applicationDbContext.Users.FindAsync(loggedUserAccount.Id);
+            if (userCheck == null)
+            {
+                role = "admin";
+            }
+            else
+            {
+                role = "user";
+            }
+
+            var newToken = new AuthLoginResponse() { AuthTokenValue = signInToken, Role = role};
             _applicationDbContext.UserTokens.Add(authToken);
             await _applicationDbContext.SaveChangesAsync(cancellationToken);
             await _signInLogger.LogSignIn(loggedUserAccount, true);

@@ -93,6 +93,30 @@ namespace SpineWise.Web.Migrations
                     b.ToTable("ChairsUsers");
                 });
 
+            modelBuilder.Entity("SpineWise.ClassLibrary.Models.FingerprintLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("LogDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Successful")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FingerprintLogs");
+                });
+
             modelBuilder.Entity("SpineWise.ClassLibrary.Models.SignInLog", b =>
                 {
                     b.Property<int>("Id")
@@ -136,6 +160,36 @@ namespace SpineWise.Web.Migrations
                     b.HasIndex("UserAccountID");
 
                     b.ToTable("SignOutLogs");
+                });
+
+            modelBuilder.Entity("SpineWise.ClassLibrary.Models.SpineWiseDataLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChairId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("LegDistance")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("LogDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("LumbarBackDistance")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ThoracicBackDistance")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChairId");
+
+                    b.ToTable("SpineWiseDataLogs");
                 });
 
             modelBuilder.Entity("SpineWise.ClassLibrary.Models.UserAccount", b =>
@@ -248,6 +302,11 @@ namespace SpineWise.Web.Migrations
                 {
                     b.HasBaseType("SpineWise.ClassLibrary.Models.UserAccount");
 
+                    b.Property<int?>("ChairId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("ChairId");
+
                     b.ToTable("Users");
                 });
 
@@ -281,6 +340,17 @@ namespace SpineWise.Web.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SpineWise.ClassLibrary.Models.FingerprintLog", b =>
+                {
+                    b.HasOne("SpineWise.ClassLibrary.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("SpineWise.ClassLibrary.Models.SignInLog", b =>
                 {
                     b.HasOne("SpineWise.ClassLibrary.Models.UserAccount", "UserAccount")
@@ -301,6 +371,17 @@ namespace SpineWise.Web.Migrations
                         .IsRequired();
 
                     b.Navigation("UserAccount");
+                });
+
+            modelBuilder.Entity("SpineWise.ClassLibrary.Models.SpineWiseDataLog", b =>
+                {
+                    b.HasOne("SpineWise.ClassLibrary.Models.Chair", "Chair")
+                        .WithMany()
+                        .HasForeignKey("ChairId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chair");
                 });
 
             modelBuilder.Entity("SpineWise.ClassLibrary.Models.UserActionLog", b =>
@@ -336,11 +417,17 @@ namespace SpineWise.Web.Migrations
 
             modelBuilder.Entity("SpineWise.ClassLibrary.Models.User", b =>
                 {
+                    b.HasOne("SpineWise.ClassLibrary.Models.Chair", "Chair")
+                        .WithMany()
+                        .HasForeignKey("ChairId");
+
                     b.HasOne("SpineWise.ClassLibrary.Models.UserAccount", null)
                         .WithOne()
                         .HasForeignKey("SpineWise.ClassLibrary.Models.User", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Chair");
                 });
 #pragma warning restore 612, 618
         }

@@ -18,8 +18,8 @@ namespace SpineWise.ClassLibrary.Models
         public Chair Chair { get; set; }
 
 
-        [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
-        public User User { get; set; }
+        //[ForeignKey(nameof(User))]
+        //public int UserId { get; set; }
+        //public User User { get; set; }
     }
 }

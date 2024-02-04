@@ -7,7 +7,7 @@ using SpineWise.Web.Helpers.Models;
 
 namespace SpineWise.Web.Endpoints.ChairManagement.GetByUser
 {
-    [Route("get")]
+    [Route("chair")]
     public class GetChairByUserEndpoint:MyBaseEndpoint<NoRequest, GetChairByUserResponse>
     {
         private readonly ApplicationDbContext _applicationDbContext;
@@ -20,19 +20,31 @@ namespace SpineWise.Web.Endpoints.ChairManagement.GetByUser
         }
 
         [HttpGet("getbyuser")]
-        public override async Task<ActionResult<GetChairByUserResponse>> Action(NoRequest request, CancellationToken cancellationToken = default)
+        public override async Task<ActionResult<GetChairByUserResponse>> Action([FromQuery]NoRequest request, CancellationToken cancellationToken = default)
         {
             var user = _myAuthService.GetAuthInfo().UserAccount;
             if (user == null)
             {
                 return BadRequest("No user logged in!");
             }
-            var chairs = await _applicationDbContext
-                .ChairsUsers
-                .Where(x => x.UserId == user.Id)
-                .ToListAsync(cancellationToken);
 
-            return Ok(chairs);
+            var userDb = await _applicationDbContext.Users.Include(x => x.Chair).Include(x=>x.Chair.ChairModel).Where(x => x.Id == user.Id)
+                .FirstOrDefaultAsync(cancellationToken);
+            if (userDb == null)
+            {
+                return BadRequest("Problem with user");
+            }
+            var chair = userDb.Chair;
+            if (chair == null)
+            {
+                return Ok();
+            }
+            return Ok(new GetChairByUserResponse
+            {
+                DateOfCreating = chair.DateOfCreating,
+                SerialNumber = chair.SerialNumber,
+                ChairModelName = chair.ChairModel.Name
+            });
         }
     }
 }

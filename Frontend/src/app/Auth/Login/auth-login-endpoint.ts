@@ -13,4 +13,12 @@ export class AuthLoginEndpoint {
     let url=MyConfig.api_address+"/auth/login";
     return this.http.post<AuthLoginResponse>(url, request);
   }
+
+  Logout(){
+    let url=MyConfig.api_address+"/auth/logout";
+    var obj={
+
+    };
+    return this.http.post(url, obj);
+  }
 }

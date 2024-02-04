@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Endpoints\NewFolder\" />
+    <Folder Include="Endpoints\SpineWiseDataLog\GetByDay\" />
     <Folder Include="Models\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>

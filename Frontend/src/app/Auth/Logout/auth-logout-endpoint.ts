@@ -7,9 +7,12 @@ import {MyConfig} from "../../MyConfig";
 export class AuthLogoutEndpoint{
   constructor(public httpClient:HttpClient) { }
 
-  SignOut(tokenValue: string): Observable<void> {
+  SignOut(tokenValue: string) {
     let url=MyConfig.api_address+`/auth/logout`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': tokenValue });
+    //const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': tokenValue });
     console.log("doing logout: ", tokenValue);
-    return this.httpClient.post<void>(url, {}, {'headers': headers});
+    var obj={
+
+    };
+    return this.httpClient.post(url, obj); //, {'headers': headers}
   }}

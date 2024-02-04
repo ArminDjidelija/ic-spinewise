@@ -18,7 +18,7 @@ namespace SpineWise.Web.Endpoints.ChairManagement.Delete
         }
 
         [HttpDelete("delete")]
-        public override async Task<ActionResult<NoResponse>> Action([FromBody]DeleteChairRequest request, CancellationToken cancellationToken = default)
+        public override async Task<ActionResult<NoResponse>> Action([FromQuery]DeleteChairRequest request, CancellationToken cancellationToken = default)
         {
             var chair = await _applicationDbContext.Chairs.FindAsync(request.Id);
             if (chair == null)
