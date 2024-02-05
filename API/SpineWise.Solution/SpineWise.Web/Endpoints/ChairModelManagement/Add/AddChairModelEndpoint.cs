@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpineWise.ClassLibrary.Models;
 using SpineWise.Web.Data;
+using SpineWise.Web.Helpers.Auth;
 using SpineWise.Web.Helpers.Endpoint;
 using SpineWise.Web.Helpers.Models;
 
 namespace SpineWise.Web.Endpoints.ChairModelManagement.Add
 {
+    [MyAuthorization("superuser")]
     [Route("chairmodel")]
     public class AddChairModelEndpoint:MyBaseEndpoint<AddChairModelRequest, NoResponse>
     {

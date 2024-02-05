@@ -13,7 +13,7 @@ export class UserSittingdataDataservice{
   }
 
   GetLastSpecificDays(x:any){
-    var url=MyConfig.api_address+"/lastxdays/get?request="+x.toString();
+    var url=MyConfig.api_address+"/lastndays/get?request="+x.toString();
     return this.http.get<LastDaysResponse[]>(url);
   }
 }

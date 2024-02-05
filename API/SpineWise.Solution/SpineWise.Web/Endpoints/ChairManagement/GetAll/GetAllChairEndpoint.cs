@@ -2,11 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using SpineWise.Web.Data;
 using SpineWise.Web.Endpoints.ChairManagement.GetAll;
+using SpineWise.Web.Helpers.Auth;
 using SpineWise.Web.Helpers.Endpoint;
 using SpineWise.Web.Helpers.Models;
 
 namespace SpineWise.Web.Endpoints.ChairManagement.Get
 {
+    [MyAuthorization("superadmin")]
     [Route("chair")]
     public class GetAllChairEndpoint:MyBaseEndpoint<NoRequest, GetAllChairResponse>
     {

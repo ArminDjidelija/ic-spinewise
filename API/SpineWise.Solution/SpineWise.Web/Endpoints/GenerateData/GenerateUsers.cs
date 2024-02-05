@@ -1,14 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpineWise.ClassLibrary.Models;
 using SpineWise.Web.Data;
+using SpineWise.Web.Helpers.Auth;
 using SpineWise.Web.Helpers.Auth.PasswordHasher;
 using SpineWise.Web.Helpers.Endpoint;
 using SpineWise.Web.Helpers.Generators;
 using SpineWise.Web.Helpers.Models;
+using System.Diagnostics.Metrics;
 
 namespace SpineWise.Web.Endpoints.GenerateData
 {
-    [Route("testdata")]
+    [MyAuthorization("superuser")]
+    [Route("generatedata")]
     public class GenerateUsers : MyBaseEndpoint<NoRequest, NoResponse>
     {
         private readonly ApplicationDbContext _applicationDbContext;
@@ -22,21 +25,24 @@ namespace SpineWise.Web.Endpoints.GenerateData
         public override async Task<ActionResult<NoResponse>> Action([FromQuery]NoRequest request,
             CancellationToken cancellationToken = default)
         {
+            int counter = 1;
             for (int i = 0; i < 3; i++)
             {
                 var count = _applicationDbContext.Users.Count() + 1;
-                var password=await PasswordHasher.Hash("user"+count);
+                var pass = $"user{counter}{counter + 1}{counter + 2}+-!";
+
+                var password =await PasswordHasher.Hash(pass);
                 var user = new User
                 {
                     BirthDate = DateTime.Now,
                     DateOfCreation = DateTime.Now,
-                    Email = $"u{count}@u",
+                    Email = $"user{count}@user",
                     Password = password,
-                    FirstName = "first" + count,
-                    LastName = "last" + count,
-                    Username = "first.last" + count
+                    FirstName = "userf" + count,
+                    LastName = "userl" + count,
+                    Username = "userf.userl" + count
                 };
-                _applicationDbContext.Add(user);
+                _applicationDbContext.Users.Add(user);
                 await _applicationDbContext.SaveChangesAsync(cancellationToken);
             }
 

@@ -7,6 +7,7 @@ using SpineWise.Web.Helpers.Models;
 
 namespace SpineWise.Web.Endpoints.ChairManagement.GetByUser
 {
+    [MyAuthorization("user")]
     [Route("chair")]
     public class GetChairByUserEndpoint:MyBaseEndpoint<NoRequest, GetChairByUserResponse>
     {

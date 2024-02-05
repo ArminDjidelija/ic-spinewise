@@ -29,7 +29,6 @@ export class LoginComponent {
     };
 
     this.myAuth.signIn(request).subscribe(async x=>{
-      alert(x.authTokenValue+", "+x.role);
       if(x.role==="user"){
         this.router.navigate(["/user"]);
       }

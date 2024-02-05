@@ -21,6 +21,11 @@ export class UserChairsComponent implements OnInit{
   }
   ngOnInit(): void {
     this.loadChairs();
+    this.stolica={
+      serialNumber:"",
+      dateOfCreating:"",
+      chairModelName:""
+    };
   }
   stolica:Chair={
     serialNumber:"",

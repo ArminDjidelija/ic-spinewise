@@ -1,10 +1,113 @@
-<p>homepage works!</p>
-<button routerLink="/user">Redirekcija na user panel</button> radi
-<br>
-<button routerLink="/s-admin">Redirekcija na admin</button> radi
-<br>
+<!DOCTYPE html>
+<html>
 
-<button routerLink="/login">Redirekcija na login</button> radi login
-<br>
-<button routerLink="/register">Redirekcija na register</button> ne radi još
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+  <title></title>
+
+  <!-- Bootstrap CSS CDN -->
+  <!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">-->
+  <!-- Our Custom CSS -->
+  <!--  <link rel="stylesheet" href="style4.css">-->
+
+  <!-- Font Awesome JS -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+
+
+<div class="wrapper">
+
+  <div id="content">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+
+<!--        <button type="button" id="sidebarCollapse" class="btn btn-info">-->
+<!--          <i class="fa fa-align-left"></i>-->
+<!--          <span></span>-->
+<!--        </button>-->
+
+        <div class="sidebar-header">
+          <a routerLink="" style="color: #3e96cb">
+            <h3>SpineWise</h3>
+          </a>
+<!--          <a routerLink="">-->
+<!--            <strong>SW</strong>-->
+<!--          </a>-->
+        </div>
+
+
+        <button style="background-color: #3e96cb" class="btn  d-inline-block d-lg-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-align-justify"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto text-center">
+            <li class="nav-item">
+              <a class="nav-link" href="">Test1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Test2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Test3</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/login">
+                <button style="background-color: #3e96cb;color: white;border-radius: 15px;border: 0px;padding-bottom: 3px;padding-left: 10px;padding-right: 10px">
+                  Sign in
+                </button>
+              </a>
+            </li>
+            <!--            <li class="nav-item">-->
+            <!--              <a class="nav-link" href="#">Page</a>-->
+            <!--            </li>-->
+          </ul>
+        </div>
+
+
+
+
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <img src="assets/logo/logo2.jpg" style="width: 100%">
+      </div>
+      <div class="col-lg-6 d-flex align-items-center">
+        <p class="fs-3">
+          The SpineWise smart chair is an intelligent chair carefully crafted to cradle your body in unparalleled comfort and actively correct your posture.
+        </p>
+      </div>
+    </div>
+
+    <router-outlet>    </router-outlet>
+
+  </div>
+
+
+
+<!--  <button routerLink="/user">Redirekcija na user panel</button> radi-->
+<!--  <br>-->
+<!--  <button routerLink="/s-admin">Redirekcija na admin</button> radi-->
+<!--  <br>-->
+
+<!--  <button routerLink="/login">Redirekcija na login</button> radi login-->
+<!--  <br>-->
+<!--  <button routerLink="/register">Redirekcija na register</button> ne radi još-->
+
+</div>
+
+
+
+</body>
+</html>

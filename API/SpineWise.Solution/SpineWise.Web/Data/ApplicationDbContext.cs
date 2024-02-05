@@ -21,11 +21,18 @@ namespace SpineWise.Web.Data
         public DbSet<ChairUser> ChairsUsers { get; set; }
         public DbSet<FingerprintLog> FingerprintLogs{ get; set; }
         public DbSet<SpineWiseDataLog> SpineWiseDataLogs { get; set; }
+        public DbSet<SpinePostureDataLog> SpinePostureDataLogs { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserAccount>().UseTptMappingStrategy();
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Chair)
+                .WithMany()
+                .HasForeignKey(u => u.ChairId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
