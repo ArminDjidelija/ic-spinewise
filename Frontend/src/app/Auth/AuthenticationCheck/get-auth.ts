@@ -27,14 +27,14 @@ export class GetAuth{
       if(response.status==200)
       {
         isAdmin=true;
-        console.log("is super admin (check await): ", isAdmin);
+        //console.log("is super admin (check await): ", isAdmin);
       }
       else if(response.status==401){
         isAdmin=false;
-        console.log("is super admin (check await): ", isAdmin);
+       // console.log("is super admin (check await): ", isAdmin);
       }
       else {
-        console.log("error with sign in");
+       // console.log("error with sign in");
       }
     }
 
@@ -50,14 +50,14 @@ export class GetAuth{
       if(response.status==200)
       {
         isAdmin=true;
-        console.log("is admin (check await): ", isAdmin);
+       // console.log("is admin (check await): ", isAdmin);
       }
       else if(response.status==401){
         isAdmin=false;
-        console.log("is admin (check await): ", isAdmin);
+       // console.log("is admin (check await): ", isAdmin);
       }
       else {
-        console.log("error with sign in");
+       // console.log("error with sign in");
       }
     }
 
@@ -73,14 +73,14 @@ export class GetAuth{
       if(response.status==200)
       {
         isUser=true;
-        console.log("is user (check await): ", isUser);
+      //  console.log("is user (check await): ", isUser);
       }
       else if(response.status==401){
         isUser=false;
-        console.log("is user (check await): ", isUser);
+      //  console.log("is user (check await): ", isUser);
       }
       else {
-        console.log("error with sign in");
+      //  console.log("error with sign in");
       }
     }
 

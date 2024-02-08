@@ -1,27 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpineWise.Web.Data;
-using SpineWise.Web.Endpoints.SpineWiseDataLog.GetLast5Days;
+using SpineWise.Web.Endpoints.SpinePostureDataLog.GetLastXDays;
 using SpineWise.Web.Helpers.Auth;
 using SpineWise.Web.Helpers.Endpoint;
 
-namespace SpineWise.Web.Endpoints.SpinePostureDataLog.GetLastXDays
+namespace SpineWise.Web.Endpoints.SpinePostureDataLog.GetGoodBadRatio
 {
-    //[MyAuthorization("user,superuser")]
-    [Route("lastndays")]
-    public class GetLastXSittingDataEndpoint:MyBaseEndpoint<int, GetLastXSittingDataResponse>
+    [Route("goodbadratio")]
+    public class GetGoodBadRatioEndpoint:MyBaseEndpoint<int, GetGoodBadRatioResponse>
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _myAuthService;
 
-        public GetLastXSittingDataEndpoint(ApplicationDbContext context, MyAuthService myAuth)
+        public GetGoodBadRatioEndpoint(ApplicationDbContext context, MyAuthService myAuth)
         {
             _applicationDbContext = context;
             _myAuthService = myAuth;
         }
 
         [HttpGet("get")]
-        public override async Task<ActionResult<GetLastXSittingDataResponse>> Action(int request, CancellationToken cancellationToken = default)
+        public override async Task<ActionResult<GetGoodBadRatioResponse>> Action([FromQuery]int request, CancellationToken cancellationToken = default)
         {
             var userLogged = _myAuthService.GetAuthInfo().UserAccount;
             if (userLogged == null)
@@ -53,20 +52,28 @@ namespace SpineWise.Web.Endpoints.SpinePostureDataLog.GetLastXDays
                 })
                 .ToListAsync(cancellationToken);
 
-            var lastDaysSum = new List<GetLastXSittingDataResponse>();
+            var lastDaysSum = new List<GetGoodBadRatioResponse>();
 
             foreach (var day in lastXDaysMinutes)
             {
-                var newDate = new GetLastXSittingDataResponse()
+                var newDate = new GetGoodBadRatioResponse()
                 {
                     Date = day.Date
                 };
 
-                newDate.TotalMinutes = day.Logs
-                    .Zip(day.Logs.Skip(1), (firstLog, secondLog) => (secondLog.DateTime - firstLog.DateTime).TotalMinutes)
-                    .Where(diff => diff < 5) //mora biti razlika intervala manja od 5 minuta da bi se registrovalo sjedenje, odnosno vrijeme sjedenja
-                    .Sum();
-
+                newDate.CountGood = day.Logs.Count(log => log.Good);
+                newDate.CountBad = day.Logs.Count(log => !log.Good);
+                var sum = newDate.CountGood + newDate.CountBad;
+                if (sum > 0)
+                {
+                    newDate.RatioGood = float.Round(100 * (float)newDate.CountGood / (float)sum, 2);
+                    newDate.RatioBad = float.Round(100 * (float)newDate.CountBad / (float)sum, 2);
+                }
+                else
+                {
+                    newDate.RatioBad = 0;
+                    newDate.RatioGood = 0;
+                }
                 lastDaysSum.Add(newDate);
             }
 

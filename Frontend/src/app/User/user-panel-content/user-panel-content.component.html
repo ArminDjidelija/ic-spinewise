@@ -1,5 +1,21 @@
-<p>user-panel-content works!</p>
+<div style="margin-bottom: 60px;height: 100px;width: 100%;text-align: center;font-size: xx-large; display: flex;
+   margin: auto;
 
-<div class="chart">
-  <canvas id="myChart"></canvas>
+   /* Opciono, ako želite centrirati u odnosu na visinu ekrana */" *ngIf="warningShow" [ngClass]="{'red':isred}">Wrong posture, {{procenatLast5}}% of time in last minute your posture was in unhealthy position</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="chart">
+      <canvas id="vrijeme"></canvas>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="chart">
+      <canvas id="goodbad"></canvas>
+    </div>
+  </div>
 </div>
+
+<!--<div class="chart">-->
+<!--  <canvas id="goodbad"></canvas>-->
+<!--</div>-->

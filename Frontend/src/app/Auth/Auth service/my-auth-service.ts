@@ -34,7 +34,7 @@ export class MyAuthService{
     }
   }
   async signOut():Promise<void>{
-    console.log("Signing out");
+   // console.log("Signing out");
 
     const token = this.getAuthorizationToken();
 
@@ -48,7 +48,7 @@ export class MyAuthService{
       this.setLoggedUser(null);
       await this.router.navigate([""]);
     }
-    console.log("We signed out successfully");
+    //console.log("We signed out successfully");
 
   }
   setLoggedUser(x:string | null){

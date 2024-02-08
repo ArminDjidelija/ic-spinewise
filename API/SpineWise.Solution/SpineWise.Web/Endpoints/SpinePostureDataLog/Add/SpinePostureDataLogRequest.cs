@@ -8,6 +8,6 @@
         public bool PressureSensor2 { get; set; }
         public bool PressureSensor3 { get; set; }
         public int ChairId { get; set; }
-        public string Key { get; set; }
+        public string? Key { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using SpineWise.Web.Data;
 using SpineWise.Web.Helpers.Endpoint;
 using SpineWise.Web.Helpers.Models;
+using SpineWise_Web;
 
 namespace SpineWise.Web.Endpoints.SpinePostureDataLog.Add
 {
@@ -26,6 +27,13 @@ namespace SpineWise.Web.Endpoints.SpinePostureDataLog.Add
             var DatumVrijeme = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
                 TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time"));
 
+            var tool = new AiPredictor();
+            var good = await tool.GetPredictionAsync(request.UpperBackDistance, request.LegDistance,
+                (request.PressureSensor1 ? 1.0f : 0.0f),
+                (request.PressureSensor2 ? 1.0f : 0.0f),
+                (request.PressureSensor3 ? 1.0f : 0.0f)
+            );
+
             var obj = new ClassLibrary.Models.SpinePostureDataLog()
             {
                 LegDistance = request.LegDistance,
@@ -35,13 +43,41 @@ namespace SpineWise.Web.Endpoints.SpinePostureDataLog.Add
                 PressureSensor3 = request.PressureSensor3,
                 ChairId = request.ChairId,
                 DateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
-                    TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time"))
+                    TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time")),
+                Good = good
             };
 
             _applicationDbContext.SpinePostureDataLogs.Add(obj);
             await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
             return Ok();
+        }
+    }
+
+    public class AiPredictor
+    {
+        public async Task<bool> GetPredictionAsync(float up, float leg, float p1, float p2, float p3)
+        {
+            // Load sample data
+            var sampleData = new MLModelspine.ModelInput()
+            {
+                UpperBackDistance = up,
+                LegDistance = leg,
+                PressureSensor1 = p1,
+                PressureSensor2 = p2,
+                PressureSensor3 = p3,
+            };
+
+            // Load model and predict output
+            var result = await Task.Run(() => MLModelspine.Predict(sampleData));
+            var resultBool = false;
+            var podatak = Convert.ToInt32(result.PredictedLabel);
+            if (podatak == 1)
+            {
+                resultBool = true;
+            }
+
+            return resultBool;
         }
     }
 }

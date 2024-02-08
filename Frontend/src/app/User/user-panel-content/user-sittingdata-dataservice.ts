@@ -16,9 +16,37 @@ export class UserSittingdataDataservice{
     var url=MyConfig.api_address+"/lastndays/get?request="+x.toString();
     return this.http.get<LastDaysResponse[]>(url);
   }
+
+  GetGoodBadRatioData(x:any){
+    var url=MyConfig.api_address+"/goodbadratio/get?request="+x.toString();
+    return this.http.get<GoodBadRatioResponse[]>(url);
+  }
+  GetWarning(){
+    var url=MyConfig.api_address+"/warning/get";
+    return this.http.get<WarningInfo>(url);
+  }
 }
 
 export interface LastDaysResponse{
   date:string,
   totalMinutes:number
 }
+export interface GoodBadRatioResponse {
+  date: string
+  countGood: number
+  countBad: number
+  ratioGood: number
+  ratioBad: number
+}
+
+export interface WarningInfo {
+  badCount: number
+  goodCount: number
+  goodBadRatio: number
+  badGoodRatio: number
+  badCount5: number
+  goodCount5: number
+  goodBadRatio5: number
+  badGoodRatio5: number
+}
+

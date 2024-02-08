@@ -21,6 +21,6 @@ namespace SpineWise.ClassLibrary.Models
         [ForeignKey(nameof(Chair))]
         public int ChairId { get; set; }
         public Chair Chair { get; set; }
-
+        public bool Good{ get; set; }
     }
 }

@@ -10,7 +10,7 @@ export class AuthLogoutEndpoint{
   SignOut(tokenValue: string) {
     let url=MyConfig.api_address+`/auth/logout`;
     //const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'auth-token': tokenValue });
-    console.log("doing logout: ", tokenValue);
+   // console.log("doing logout: ", tokenValue);
     var obj={
 
     };

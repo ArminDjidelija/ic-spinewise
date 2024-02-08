@@ -14,10 +14,10 @@ export class MyAuthInterceptor implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     //const myAuth=inject(MyAuthService);
-    console.log("intercept");
+    //console.log("intercept");
     // Get the auth token from the service.
     const authToken = this.auth.getAuthorizationToken()??"";
-    console.log(authToken);
+    //console.log(authToken);
     // Clone the request and replace the original headers with
     // cloned headers, updated with the authorization.
     const authReq = req.clone({

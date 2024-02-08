@@ -4,8 +4,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {AuthLoginEndpoint} from "./Auth/Login/auth-login-endpoint";
 import {AuthLogoutEndpoint} from "./Auth/Logout/auth-logout-endpoint";
 import {PermissionsService} from "./Auth/Guards/auth-guard";
-import {AngularFontAwesomeModule} from "angular-font-awesome";
-import {UserPanelComponent} from "./User/user-panel/user-panel.component";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +17,7 @@ import {UserPanelComponent} from "./User/user-panel/user-panel.component";
   providers:[
     AuthLoginEndpoint,
     AuthLogoutEndpoint,
-    PermissionsService
+    PermissionsService,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

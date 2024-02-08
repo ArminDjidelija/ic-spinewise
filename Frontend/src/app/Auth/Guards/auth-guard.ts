@@ -8,7 +8,7 @@ export class PermissionsService{
   }
 
   async canActivateSuperAdmin(): Promise<boolean> { //, route:ActivatedRouteSnapshot,state:RouterStateSnapshot
-    console.log(this.getAuth.getAuthorizationToken());
+    //console.log(this.getAuth.getAuthorizationToken());
     const isAdmin=await this.getAuth.IsSuperAdmin();
     if(isAdmin){
       return true;
@@ -21,7 +21,7 @@ export class PermissionsService{
 
   }
   async canActivateAdmin(): Promise<boolean> { //, route:ActivatedRouteSnapshot,state:RouterStateSnapshot
-    console.log(this.getAuth.getAuthorizationToken());
+   // console.log(this.getAuth.getAuthorizationToken());
     const isAdmin=await this.getAuth.IsAdmin();
     if(isAdmin){
       return true;
@@ -34,7 +34,7 @@ export class PermissionsService{
 
   }
   async canActivateUser(): Promise<boolean> { //, route:ActivatedRouteSnapshot,state:RouterStateSnapshot
-    console.log(this.getAuth.getAuthorizationToken());
+   // console.log(this.getAuth.getAuthorizationToken());
     const isAdmin=await this.getAuth.IsUser();
     if(isAdmin){
       return true;
@@ -48,14 +48,14 @@ export class PermissionsService{
   }
 }
 export const authGuardSuperAdmin: CanActivateFn = (route, state) => {
-  console.log("Can activate check");
+  //console.log("Can activate check");
   return inject(PermissionsService).canActivateSuperAdmin(); //, inject(route), inject(state)
 };
 export const authGuardAdmin: CanActivateFn = (route, state) => {
-  console.log("Can activate check");
+  //console.log("Can activate check");
   return inject(PermissionsService).canActivateAdmin(); //, inject(route), inject(state)
 };
 export const authGuardUser: CanActivateFn = (route, state) => {
-  console.log("Can activate check");
+  //console.log("Can activate check");
   return inject(PermissionsService).canActivateUser(); //, inject(route), inject(state)
 };
